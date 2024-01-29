@@ -1,0 +1,68 @@
+<!-- main.html -->
+<head>
+    <title>Loan App</title>
+  </head>
+  
+  <body>
+    {{> home}}
+  </body>
+  
+  <template name="home">
+    <h1>Welcome to Loan App</h1>
+    {{> register}}
+  </template>
+  
+  <template name="register">
+    <form id="registrationForm">
+      <label for="email">Email:</label>
+      <input type="email" name="email" required>
+  
+      <label for="role">Role:</label>
+      <select name="role" required>
+        <option value="admin">Admin</option>
+        <option value="borrower">Borrower</option>
+        <option value="lender">Lender</option>
+      </select>
+  
+      <button type="submit">Register</button>
+    </form>
+  </template>
+  
+  <!-- Add to main.html -->
+<template name="loanRequests">
+    <h2>Loan Requests</h2>
+    {{#each loanRequests}}
+      <div>
+        <p>{{email}} is requesting a loan</p>
+        <button class="approveLoan" data-id="{{_id}}">Approve</button>
+      </div>
+    {{/each}}
+  </template>
+  
+  <!-- Add to main.html -->
+<template name="adminDashboard">
+    <h2>Admin Dashboard</h2>
+    {{> loanRequests}}
+    <h2>Loan Approvals</h2>
+    {{#each approvedLoans}}
+      <p>{{email}} has an approved loan of {{amount}}</p>
+    {{/each}}
+  </template>
+  
+
+  
+
+  <!-- Update register template in main.html -->
+<template name="register">
+    <form id="registrationForm">
+      <!-- ... Existing fields ... -->
+      
+      {{#if isBorrower}}
+        <label for="amount">Loan Amount:</label>
+        <input type="number" name="amount" required>
+      {{/if}}
+  
+      <button type="submit">Register</button>
+    </form>
+  </template>
+  
